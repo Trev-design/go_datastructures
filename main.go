@@ -1,6 +1,8 @@
 package main
 
-import linkedlist "datastructures/linked_list"
+import (
+	linkedlist "datastructures/linked_list"
+)
 
 func main() {
 	list := linkedlist.ForwardList{}
@@ -15,6 +17,10 @@ func main() {
 	for index := 1; index < 10; index++ {
 		list.Insert(index*3, index)
 	}
+
+	list.Show()
+
+	list.Insert(300, list.Length()-1)
 
 	list.Show()
 }

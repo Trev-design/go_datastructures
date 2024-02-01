@@ -25,7 +25,7 @@ func (list *ForwardList) Prepend(value int) {
 }
 
 func (list *ForwardList) Insert(value int, index int) error {
-	if index > list.length {
+	if index >= list.length {
 		return fmt.Errorf("index %d to big", index)
 	}
 
