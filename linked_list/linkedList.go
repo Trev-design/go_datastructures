@@ -54,6 +54,40 @@ func (list *ForwardList) Insert(value int, index int) error {
 	return nil
 }
 
+func (list *ForwardList) Delete(index int) (int, error) {
+	if list.head == nil {
+		return 0, fmt.Errorf("list is empty")
+	}
+
+	if index >= list.length {
+		return 0, fmt.Errorf("index %d is to big", index)
+	}
+
+	if index < 0 {
+		return 0, fmt.Errorf("index must be positive")
+	}
+
+	var value int
+
+	if index == 0 {
+		value = list.head.value
+		list.head = list.head.next
+		list.length--
+		return value, nil
+	}
+
+	current := list.head
+
+	for place := 0; place < index-1; place++ {
+		current = current.next
+	}
+
+	value = current.next.value
+	current.next = current.next.next
+	list.length--
+	return value, nil
+}
+
 func (list *ForwardList) Show() {
 	toPrint := list.head
 	fmt.Print("[ ")
