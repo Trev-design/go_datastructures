@@ -21,5 +21,7 @@ func ShowUtils() {
 	fmt.Println("=======================")
 	maxHeap.Extract()
 	fmt.Println(maxHeap)
+	maxHeap.Extract()
+	fmt.Println(maxHeap)
 	fmt.Println()
 }

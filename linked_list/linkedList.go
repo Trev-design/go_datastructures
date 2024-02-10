@@ -88,6 +88,42 @@ func (list *ForwardList) Delete(index int) (int, error) {
 	return value, nil
 }
 
+func (list *ForwardList) Reverse() error {
+	if list.head == nil {
+		return fmt.Errorf("ther is nothing to reverse")
+	}
+	current := list.head
+	var shift, reverseNode *node = nil, nil
+
+	for current != nil {
+		reverseNode = shift
+		shift = current
+		current = current.next
+		shift.next = reverseNode
+	}
+	list.head = shift
+
+	return nil
+}
+
+func (list *ForwardList) Concat(other *ForwardList) error {
+	if list.head == nil {
+		return fmt.Errorf("you can not concatenate a list on an empty list")
+	}
+
+	current := list.head
+	otherHead := other.head
+
+	for current.next != nil {
+		current = current.next
+	}
+
+	current.next = otherHead
+	otherHead = nil
+
+	return nil
+}
+
 func (list *ForwardList) Show() {
 	toPrint := list.head
 	fmt.Print("[ ")

@@ -78,4 +78,24 @@ func ShowUtils() {
 
 	list.Show()
 	fmt.Println()
+
+	fmt.Println("reversing a linked list")
+	fmt.Println("=======================")
+	list.Reverse()
+
+	list.Show()
+	fmt.Println()
+
+	list2 := ForwardList{}
+
+	for index := 0; index < 5; index++ {
+		list2.Prepend(8)
+	}
+
+	fmt.Println("concatenating two linked lists")
+	fmt.Println("==============================")
+	list.Concat(&list2)
+
+	list.Show()
+	fmt.Println()
 }
