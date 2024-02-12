@@ -98,4 +98,22 @@ func ShowUtils() {
 
 	list.Show()
 	fmt.Println()
+
+	fmt.Println("merging two linked lists")
+	fmt.Println("========================")
+
+	list3 := ForwardList{}
+	list4 := ForwardList{}
+
+	for index := 5; index > 0; index-- {
+		list3.Prepend(index)
+		list4.Prepend(index + 1)
+	}
+
+	list3.Show()
+	list4.Show()
+
+	list3.Merge(&list4)
+
+	list3.Show()
 }

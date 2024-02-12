@@ -106,6 +106,19 @@ func (list *ForwardList) Reverse() error {
 	return nil
 }
 
+func (list *ForwardList) IsSorted() bool {
+	current := list.head
+
+	for current.next != nil {
+		if current.value > current.next.value {
+			return false
+		}
+
+		current = current.next
+	}
+	return true
+}
+
 func (list *ForwardList) Concat(other *ForwardList) error {
 	if list.head == nil {
 		return fmt.Errorf("you can not concatenate a list on an empty list")
@@ -120,6 +133,56 @@ func (list *ForwardList) Concat(other *ForwardList) error {
 
 	current.next = otherHead
 	otherHead = nil
+
+	return nil
+}
+
+func (list *ForwardList) Merge(other *ForwardList) error {
+	current, otherCurrent := list.head, other.head
+
+	if !list.IsSorted() {
+		return fmt.Errorf("the list must be sorted to make a merge")
+	}
+
+	if !other.IsSorted() {
+		return fmt.Errorf("the list which you want to use to make a merge is not sorted")
+	}
+
+	var newNode, lastNode *node
+
+	if current.value < otherCurrent.value {
+		lastNode = current
+		newNode = lastNode
+		current = current.next
+		newNode.next = nil
+	} else {
+		lastNode = otherCurrent
+		newNode = lastNode
+		otherCurrent = otherCurrent.next
+		newNode.next = nil
+	}
+
+	for current != nil && otherCurrent != nil {
+		if current.value < otherCurrent.value {
+			lastNode.next = current
+			lastNode = current
+			current = current.next
+			lastNode.next = nil
+		} else {
+			lastNode.next = otherCurrent
+			lastNode = otherCurrent
+			otherCurrent = otherCurrent.next
+			lastNode.next = nil
+		}
+	}
+
+	if current != nil {
+		lastNode.next = current
+	}
+
+	if otherCurrent != nil {
+		lastNode.next = otherCurrent
+	}
 
 	return nil
 }
