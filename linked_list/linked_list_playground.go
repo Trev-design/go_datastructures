@@ -113,7 +113,7 @@ func ShowUtils() {
 	list3.Show()
 	list4.Show()
 
-	list3.Merge(&list4)
+	list3.Merge(&list4, func(a int, b int) bool { return a <= b })
 
 	list3.Show()
 }

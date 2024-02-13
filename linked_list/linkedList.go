@@ -2,6 +2,8 @@ package linked_list
 
 import "fmt"
 
+type CompareFunc func(int, int) bool
+
 type node struct {
 	value int
 	next  *node
@@ -106,11 +108,11 @@ func (list *ForwardList) Reverse() error {
 	return nil
 }
 
-func (list *ForwardList) IsSorted() bool {
+func (list *ForwardList) IsSorted(compare CompareFunc) bool {
 	current := list.head
 
 	for current.next != nil {
-		if current.value > current.next.value {
+		if !compare(current.value, current.next.value) {
 			return false
 		}
 
@@ -137,14 +139,14 @@ func (list *ForwardList) Concat(other *ForwardList) error {
 	return nil
 }
 
-func (list *ForwardList) Merge(other *ForwardList) error {
+func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 	current, otherCurrent := list.head, other.head
 
-	if !list.IsSorted() {
+	if !list.IsSorted(compare) {
 		return fmt.Errorf("the list must be sorted to make a merge")
 	}
 
-	if !other.IsSorted() {
+	if !other.IsSorted(compare) {
 		return fmt.Errorf("the list which you want to use to make a merge is not sorted")
 	}
 
