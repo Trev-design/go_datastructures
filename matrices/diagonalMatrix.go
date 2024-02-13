@@ -46,3 +46,16 @@ func (matrix *DiagonalMatrix) GetValue(row, column int) (int, error) {
 
 	return matrix.container[row], nil
 }
+
+func (matrix *DiagonalMatrix) ShowMatrix() {
+	for row := 0; row < matrix.dimension; row++ {
+		for column := 0; column < matrix.dimension; column++ {
+			if row == column {
+				fmt.Printf(" %d", matrix.container[row])
+			} else {
+				fmt.Print(" 0")
+			}
+		}
+		fmt.Println()
+	}
+}
