@@ -14,6 +14,10 @@ type ForwardList struct {
 	length int
 }
 
+func Create() *ForwardList {
+	return &ForwardList{}
+}
+
 func (list *ForwardList) Length() int {
 	return list.length
 }
@@ -186,7 +190,24 @@ func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 		lastNode.next = otherCurrent
 	}
 
+	list.length += other.length
+
 	return nil
+}
+
+func (list *ForwardList) Sum() int {
+	current := list.head
+	sum := 0
+	for current != nil {
+		sum += current.value
+		current = current.next
+	}
+
+	return sum
+}
+
+func (list *ForwardList) Average() float64 {
+	return float64(list.Sum()) / float64(list.length)
 }
 
 func (list *ForwardList) Show() {

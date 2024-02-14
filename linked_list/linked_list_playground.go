@@ -1,11 +1,13 @@
 package linked_list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func ShowUtils() {
 	fmt.Println("Initialize a list")
 	fmt.Println("=================")
-	list := ForwardList{}
+	list := Create()
 	list.Show()
 
 	fmt.Println()
@@ -86,7 +88,7 @@ func ShowUtils() {
 	list.Show()
 	fmt.Println()
 
-	list2 := ForwardList{}
+	list2 := Create()
 
 	for index := 0; index < 5; index++ {
 		list2.Prepend(8)
@@ -94,7 +96,7 @@ func ShowUtils() {
 
 	fmt.Println("concatenating two linked lists")
 	fmt.Println("==============================")
-	list.Concat(&list2)
+	list.Concat(list2)
 
 	list.Show()
 	fmt.Println()
@@ -102,18 +104,54 @@ func ShowUtils() {
 	fmt.Println("merging two linked lists")
 	fmt.Println("========================")
 
-	list3 := ForwardList{}
-	list4 := ForwardList{}
+	list3 := Create()
+	list4 := Create()
+	list5 := Create()
+	list6 := Create()
+	list7 := Create()
+	list8 := Create()
+	list9 := Create()
 
 	for index := 5; index > 0; index-- {
 		list3.Prepend(index)
 		list4.Prepend(index + 1)
+		list5.Prepend(index + 2)
+		list6.Prepend(index * 2)
+		list7.Prepend(index * 3)
+		list8.Prepend(index + 4)
+	}
+
+	for index := 15; index > 0; index-- {
+		list9.Prepend(index)
 	}
 
 	list3.Show()
 	list4.Show()
+	list5.Show()
+	list6.Show()
+	list7.Show()
+	list8.Show()
+	list9.Show()
 
-	list3.Merge(&list4, func(a int, b int) bool { return a <= b })
-
+	list3.Merge(list4, func(a int, b int) bool { return a <= b })
 	list3.Show()
+
+	list3.Merge(list5, func(a int, b int) bool { return a <= b })
+	list3.Show()
+
+	list3.Merge(list6, func(a int, b int) bool { return a <= b })
+	list3.Show()
+
+	list3.Merge(list7, func(a int, b int) bool { return a <= b })
+	list3.Show()
+
+	list3.Merge(list8, func(a int, b int) bool { return a <= b })
+	list3.Show()
+
+	list3.Merge(list9, func(a int, b int) bool { return a <= b })
+	list3.Show()
+
+	fmt.Printf("%d\n", list3.length)
+
+	fmt.Printf("The average is: %f\n", list3.Average())
 }
