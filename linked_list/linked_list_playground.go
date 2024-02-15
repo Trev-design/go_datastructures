@@ -101,6 +101,10 @@ func ShowUtils() {
 	list.Show()
 	fmt.Println()
 
+	list.Sort(func(a int, b int) bool { return a <= b })
+	list.Show()
+	fmt.Println()
+
 	fmt.Println("merging two linked lists")
 	fmt.Println("========================")
 

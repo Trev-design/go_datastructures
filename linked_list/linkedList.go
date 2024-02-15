@@ -118,6 +118,64 @@ func (list *ForwardList) Reverse() error {
 	return nil
 }
 
+func (list *ForwardList) Sort(compare CompareFunc) {
+	mergeSort(&list.head, compare)
+}
+
+func mergeSort(source **node, compare CompareFunc) {
+	head := *source
+	if head == nil || head.next == nil {
+		return
+	}
+
+	var left, right *node
+
+	split(*source, &left, &right)
+
+	mergeSort(&left, compare)
+	mergeSort(&right, compare)
+
+	*source = sortedMerge(left, right, compare)
+}
+
+func split(source *node, left, right **node) {
+	slow := source
+	fast := source.next
+
+	for fast != nil {
+		fast = fast.next
+
+		if fast != nil {
+			slow = slow.next
+			fast = fast.next
+		}
+	}
+
+	*left = source
+	*right = slow.next
+	slow.next = nil
+}
+
+func sortedMerge(left, right *node, compare CompareFunc) *node {
+	var result *node = nil
+
+	if left == nil {
+		return right
+	} else if right == nil {
+		return left
+	}
+
+	if compare(left.value, right.value) {
+		result = left
+		result.next = sortedMerge(left.next, right, compare)
+	} else {
+		result = right
+		result.next = sortedMerge(left, right.next, compare)
+	}
+
+	return result
+}
+
 // checks if the list is sorted with a specific pattern
 func (list *ForwardList) IsSorted(compare CompareFunc) bool {
 	current := list.head
