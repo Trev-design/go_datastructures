@@ -14,14 +14,17 @@ type ForwardList struct {
 	length int
 }
 
+// creates a pointer of a new list
 func Create() *ForwardList {
 	return &ForwardList{}
 }
 
+// returns the length of a list
 func (list *ForwardList) Length() int {
 	return list.length
 }
 
+// insert a new value at the beginning of a list
 func (list *ForwardList) Prepend(value int) {
 	newNode := &node{value: value}
 	nextNode := list.head
@@ -30,6 +33,7 @@ func (list *ForwardList) Prepend(value int) {
 	list.length++
 }
 
+// insert a new value an any place of a list
 func (list *ForwardList) Insert(value int, index int) error {
 	if index >= list.length {
 		return fmt.Errorf("index %d to big", index)
@@ -60,6 +64,7 @@ func (list *ForwardList) Insert(value int, index int) error {
 	return nil
 }
 
+// deletes the value at given index of a list
 func (list *ForwardList) Delete(index int) (int, error) {
 	if list.head == nil {
 		return 0, fmt.Errorf("list is empty")
@@ -94,6 +99,7 @@ func (list *ForwardList) Delete(index int) (int, error) {
 	return value, nil
 }
 
+// reverses a list
 func (list *ForwardList) Reverse() error {
 	if list.head == nil {
 		return fmt.Errorf("ther is nothing to reverse")
@@ -112,6 +118,7 @@ func (list *ForwardList) Reverse() error {
 	return nil
 }
 
+// checks if the list is sorted with a specific pattern
 func (list *ForwardList) IsSorted(compare CompareFunc) bool {
 	current := list.head
 
@@ -125,6 +132,7 @@ func (list *ForwardList) IsSorted(compare CompareFunc) bool {
 	return true
 }
 
+// append a list to another
 func (list *ForwardList) Concat(other *ForwardList) error {
 	if list.head == nil {
 		return fmt.Errorf("you can not concatenate a list on an empty list")
@@ -140,9 +148,12 @@ func (list *ForwardList) Concat(other *ForwardList) error {
 	current.next = otherHead
 	otherHead = nil
 
+	list.length += other.length
+
 	return nil
 }
 
+// merges to sorted lists together
 func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 	current, otherCurrent := list.head, other.head
 
@@ -156,7 +167,7 @@ func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 
 	var newNode, lastNode *node
 
-	if current.value < otherCurrent.value {
+	if compare(current.value, otherCurrent.value) {
 		lastNode = current
 		newNode = lastNode
 		current = current.next
@@ -169,7 +180,7 @@ func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 	}
 
 	for current != nil && otherCurrent != nil {
-		if current.value < otherCurrent.value {
+		if compare(current.value, otherCurrent.value) {
 			lastNode.next = current
 			lastNode = current
 			current = current.next
@@ -195,6 +206,7 @@ func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 	return nil
 }
 
+// calculates the sum of a list
 func (list *ForwardList) Sum() int {
 	current := list.head
 	sum := 0
@@ -206,10 +218,12 @@ func (list *ForwardList) Sum() int {
 	return sum
 }
 
+// calculates the average of the list
 func (list *ForwardList) Average() float64 {
 	return float64(list.Sum()) / float64(list.length)
 }
 
+// prints a list well formated
 func (list *ForwardList) Show() {
 	toPrint := list.head
 	fmt.Print("[ ")
