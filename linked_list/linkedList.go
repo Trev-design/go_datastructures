@@ -130,12 +130,12 @@ func mergeSort(source **node, compare CompareFunc) {
 
 	var left, right *node
 
-	split(*source, &left, &right)
+	split(head, &left, &right)
 
 	mergeSort(&left, compare)
 	mergeSort(&right, compare)
 
-	*source = sortedMerge(left, right, compare)
+	*source = merge(left, right, compare)
 }
 
 func split(source *node, left, right **node) {
@@ -156,7 +156,7 @@ func split(source *node, left, right **node) {
 	slow.next = nil
 }
 
-func sortedMerge(left, right *node, compare CompareFunc) *node {
+func merge(left, right *node, compare CompareFunc) *node {
 	var result *node = nil
 
 	if left == nil {
@@ -167,10 +167,10 @@ func sortedMerge(left, right *node, compare CompareFunc) *node {
 
 	if compare(left.value, right.value) {
 		result = left
-		result.next = sortedMerge(left.next, right, compare)
+		result.next = merge(left.next, right, compare)
 	} else {
 		result = right
-		result.next = sortedMerge(left, right.next, compare)
+		result.next = merge(left, right.next, compare)
 	}
 
 	return result
