@@ -1,6 +1,9 @@
 package linked_list
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type CompareFunc func(int, int) bool
 
@@ -262,6 +265,62 @@ func (list *ForwardList) Merge(other *ForwardList, compare CompareFunc) error {
 	list.length += other.length
 
 	return nil
+}
+
+func (list *ForwardList) MakeUnique() {
+	if list.head == nil || list.head.next == nil {
+		return
+	}
+
+	p, q := list.head, list.head.next
+
+	for q != nil {
+		if p.value != q.value {
+			p = q
+			q = q.next
+		} else {
+			p.next = q.next
+			q = p.next
+		}
+	}
+}
+
+func (list *ForwardList) Max() int {
+	if list.head == nil {
+		return math.MinInt
+	}
+
+	current := list.head
+	max := math.MinInt
+
+	for current != nil {
+		if current.value > max {
+			max = current.value
+		}
+
+		current = current.next
+	}
+
+	return max
+}
+
+func (list *ForwardList) Min() int {
+	if list.head == nil {
+		return math.MaxInt
+	}
+
+	current := list.head
+	max := math.MaxInt
+
+	for current != nil {
+		if current.value < max {
+			max = current.value
+		}
+
+		current = current.next
+	}
+
+	return max
 }
 
 // calculates the sum of a list
