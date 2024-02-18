@@ -7,6 +7,17 @@ type DiagonalMatrix struct {
 	dimension int
 }
 
+func CreateDiagonalMatrix(dimension int) *DiagonalMatrix {
+	return &DiagonalMatrix{
+		container: make([]int, dimension),
+		dimension: dimension,
+	}
+}
+
+func (matrix *DiagonalMatrix) GetDimension() int {
+	return matrix.dimension
+}
+
 func Create(dimension int) *DiagonalMatrix {
 	return &DiagonalMatrix{
 		container: make([]int, dimension),

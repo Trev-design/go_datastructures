@@ -9,6 +9,5 @@ import (
 func main() {
 	linked_list.ShowUtils()
 	heap.ShowUtils()
-	diMa := matrices.Create(7)
-	diMa.ShowMatrix()
+	matrices.MatrixUtils()
 }
