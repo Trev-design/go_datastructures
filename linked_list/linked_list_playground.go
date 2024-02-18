@@ -162,4 +162,24 @@ func ShowUtils() {
 	fmt.Printf("%d\n", list3.length)
 
 	fmt.Printf("The average is: %f\n", list3.Average())
+
+	fmt.Println("make list unique")
+	fmt.Println("================")
+
+	list3.Show()
+	list3.MakeUnique()
+
+	list3.Show()
+	fmt.Println()
+
+	fmt.Println("finding min and max value in a list")
+	fmt.Println("===================================")
+
+	list.Show()
+
+	minimum := list.Min()
+	maximum := list.Max()
+
+	fmt.Println("the maximum value: ", maximum)
+	fmt.Println("the minimum value: ", minimum)
 }
