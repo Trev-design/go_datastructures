@@ -10,6 +10,10 @@ type Node struct {
 	right *Node
 }
 
+func CreateBinTree() *Node {
+	return &Node{}
+}
+
 func (node *Node) Insert(key int) error {
 	if node.key < key {
 		if node.right == nil {
