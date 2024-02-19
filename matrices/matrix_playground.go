@@ -16,6 +16,10 @@ func MatrixUtils() {
 
 	dima.ShowMatrix()
 
+	fmt.Println()
+	fmt.Println("some errors could be return in get and set function")
+	fmt.Println()
+
 	if err := dima.SetValue(4, 5, 6); err != nil {
 		fmt.Printf("%v\n", err)
 	}
